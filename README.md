@@ -24,6 +24,85 @@ The feature selection techniques used are:
 3.Embedded Method
 
 # CODING AND OUTPUT:
-       # INCLUDE YOUR CODING AND OUTPUT SCREENSHOTS HERE
+```
+import pandas as pd
+from scipy import stats
+import numpy as np
+df=pd.read_csv("/content/bmi.csv")
+df.head()
+```
+![image](https://github.com/user-attachments/assets/a91e24d7-7fba-4bb1-981f-6966af97dfe9)
+
+```
+df.dropna()
+```
+![image](https://github.com/user-attachments/assets/62266da2-a035-4279-af1d-f26003b68369)
+
+```
+max_vals = df[['Height', 'Weight']].abs().max()
+print(max_vals)
+```
+![image](https://github.com/user-attachments/assets/ec252900-2168-4589-b2af-df9b9d4ce0b7)
+```
+from sklearn.preprocessing import StandardScaler
+sc=StandardScaler()
+df[['Height','Weight']]=sc.fit_transform(df[['Height','Weight']])
+df.head(10)
+```
+![image](https://github.com/user-attachments/assets/dd393bec-8763-418b-b8bb-a4956092dece)
+```
+from sklearn.preprocessing import MinMaxScaler
+scalar=MinMaxScaler()
+df[['Height','Weight']]=scalar.fit_transform(df[['Height','Weight']])
+df.head(10)
+```
+
+![image](https://github.com/user-attachments/assets/ba615424-6e72-4dd2-9068-feef859b4a1c)
+```
+from sklearn.preprocessing import Normalizer
+scaler=Normalizer()
+df[['Height','Weight']]=scaler.fit_transform(df[['Height','Weight']])
+df
+```
+![image](https://github.com/user-attachments/assets/5c875c9e-940f-4da8-9e69-61cb71081051)
+
+```
+from sklearn.preprocessing import MaxAbsScaler
+scaler=MaxAbsScaler()
+df[['Height','Weight']]=scaler.fit_transform(df[['Height','Weight']])
+df
+```
+![image](https://github.com/user-attachments/assets/4da86f98-62ff-410a-a4c5-a15f5451eb8c)
+```
+from sklearn.preprocessing import RobustScaler
+scaler=RobustScaler()
+df[['Height','Weight']]=scaler.fit_transform(df[['Height','Weight']])
+df.head()
+```
+![image](https://github.com/user-attachments/assets/73b3fe2c-2c57-48c8-804e-ea00ae5bcb14)
+
+![image](https://github.com/user-attachments/assets/8231216f-04ba-4583-b06b-9602260ee16b)
+```
+from sklearn.feature_selection import SelectKBest,mutual_info_classif,f_classif
+data={
+    'Feature1':[1,2,3,4,5],
+    'Feature2':['A','B','C','A','B'],
+    'Feature3':[0,1,1,0,1],
+    'Target':[0,1,1,0,1]
+}
+df=pd.DataFrame(data)
+X=df[['Feature1','Feature3']]
+y=df['Target']
+selector=SelectKBest(score_func=mutual_info_classif,k=1)
+X_new=selector.fit_transform(X,y)
+selected_feature_indices=selector.get_support(indices=True)
+selected_features=X.columns[selected_feature_indices]
+print("Selected Features:")
+print(selected_features)
+```
+![image](https://github.com/user-attachments/assets/87d0b66f-cec7-4d40-b0a0-83a1266edc9b)
+
 # RESULT:
-       # INCLUDE YOUR RESULT HERE
+Feature scaling and feature selection process has been successfullyperformed on the data set.
+
+
